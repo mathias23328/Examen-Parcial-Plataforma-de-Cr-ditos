@@ -8,7 +8,7 @@ RUN dotnet restore
 
 # Copia el resto del código y compila
 COPY . .
-RUN dotnet publish -c Release -o out
+RUN dotnet publish "Examen-Parcial-Plataforma-de-Cr-ditos.csproj" -c Release -o out
 
 # Imagen final para ejecutar
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
