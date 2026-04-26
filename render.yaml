@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: examen-parcial-plataforma-de-cr-ditos  # El nombre exacto de tu servicio en Render
+    runtime: dotnet                              # <-- Aquí forzamos .NET
+    repo: https://github.com/mathias23328/Examen-Parcial-Plataforma-de-Cr-ditos
+    plan: free
+    region: oregon
+    buildCommand: dotnet restore && dotnet build -c Release
+    startCommand: dotnet run --no-build -c Release --urls=http://0.0.0.0:$PORT
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
