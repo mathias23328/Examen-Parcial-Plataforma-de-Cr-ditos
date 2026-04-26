@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace Examen_Parcial_Plataforma_de_Cr_ditos.Controllers;
 
-[Authorize(Roles = "Cliente")] 
+
 public class SolicitudController : Controller
 {
     private readonly ApplicationDbContext _context;
