@@ -3,19 +3,80 @@ using System;
 using Examen_Parcial_Plataforma_de_Cr_ditos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Examen_Parcial_Plataforma_de_Cr_ditos.Data.Migrations
+namespace Examen_Parcial_Plataforma_de_Cr_ditos.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260426045725_AgregarRestricciones")]
+    partial class AgregarRestricciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.25");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+
+            modelBuilder.Entity("Examen_Parcial_Plataforma_de_Cr_ditos.Models.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Activo")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("IngresosMensuales")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Clientes", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Cliente_IngresosMensuales", "IngresosMensuales > 0");
+                        });
+                });
+
+            modelBuilder.Entity("Examen_Parcial_Plataforma_de_Cr_ditos.Models.SolicitudCredito", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("FechaSolicitud")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("MontoSolicitado")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MotivoRechazo")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("SolicitudesCredito", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Solicitud_MontoSolicitado", "MontoSolicitado > 0");
+                        });
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -213,6 +274,28 @@ namespace Examen_Parcial_Plataforma_de_Cr_ditos.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Examen_Parcial_Plataforma_de_Cr_ditos.Models.Cliente", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Examen_Parcial_Plataforma_de_Cr_ditos.Models.SolicitudCredito", b =>
+                {
+                    b.HasOne("Examen_Parcial_Plataforma_de_Cr_ditos.Models.Cliente", "Cliente")
+                        .WithMany("SolicitudesCredito")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -262,6 +345,11 @@ namespace Examen_Parcial_Plataforma_de_Cr_ditos.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Examen_Parcial_Plataforma_de_Cr_ditos.Models.Cliente", b =>
+                {
+                    b.Navigation("SolicitudesCredito");
                 });
 #pragma warning restore 612, 618
         }

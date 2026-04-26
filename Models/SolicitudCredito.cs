@@ -1,13 +1,17 @@
-// Ruta: /Models/SolicitudCredito.cs
+using Examen_Parcial_Plataforma_de_Cr_ditos.Models;  // ← Agrega esta línea
+
 namespace Examen_Parcial_Plataforma_de_Cr_ditos.Models
 {
     public class SolicitudCredito
     {
-        public int Id { get; set; }             // Identificador único de la solicitud
-        public int ClienteId { get; set; }      // Relación con el cliente que hace la solicitud
-        public decimal MontoSolicitado { get; set; }  // Monto solicitado en crédito
-        public DateTime FechaSolicitud { get; set; }  // Fecha en la que se realizó la solicitud
-        public string Estado { get; set; }      // Estado de la solicitud (Pendiente, Aprobado, Rechazado)
-        public string MotivoRechazo { get; set; }  // Motivo del rechazo, si la solicitud fue rechazada
+        public int Id { get; set; }
+        public int ClienteId { get; set; }
+        public decimal MontoSolicitado { get; set; }
+        public DateTime FechaSolicitud { get; set; }
+        public string Estado { get; set; } // Pendiente, Aprobado, Rechazado
+        public string? MotivoRechazo { get; set; } // ← Agrega esta propiedad
+        
+        // Propiedad de navegación
+        public Cliente Cliente { get; set; }
     }
 }

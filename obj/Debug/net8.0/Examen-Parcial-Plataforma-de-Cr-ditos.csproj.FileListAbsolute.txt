@@ -1,15 +1,12 @@
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\appsettings.json
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.staticwebassets.runtime.json
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\app.db
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.exe
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.deps.json
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.runtimeconfig.json
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.pdb
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Humanizer.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.UI.dll
@@ -24,16 +21,7 @@ C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bi
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Sqlite.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.FileProviders.Embedded.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\SQLitePCLRaw.batteries_v2.dll
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\SQLitePCLRaw.core.dll
@@ -125,6 +113,7 @@ C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\ob
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.RazorAssemblyInfo.cache
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.RazorAssemblyInfo.cs
+C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.sourcelink.json
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\staticwebassets\msbuild.Examen-Parcial-Plataforma-de-Cr-ditos.Microsoft.AspNetCore.StaticWebAssets.props
@@ -141,3 +130,4 @@ C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\ob
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.pdb
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\Examen-Parcial-Plataforma-de-Cr-ditos.genruntimeconfig.cache
 C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\obj\Debug\net8.0\ref\Examen-Parcial-Plataforma-de-Cr-ditos.dll
+C:\Users\Pc Game 26\Desktop\credParcial\Examen-Parcial-Plataforma-de-Cr-ditos\bin\Debug\net8.0\app.db
