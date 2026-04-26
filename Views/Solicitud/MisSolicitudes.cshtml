@@ -1,0 +1,103 @@
+@model List<Examen_Parcial_Plataforma_de_Cr_ditos.Models.SolicitudCredito>
+
+@{
+    ViewData["Title"] = "Mis Solicitudes";
+}
+
+<h2>Mis Solicitudes</h2>
+
+<!-- Formulario de filtros -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" asp-action="MisSolicitudes">
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label">Estado</label>
+                    <select name="estado" class="form-control">
+                        <option value="">Todos</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aprobado">Aprobado</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Monto Mínimo</label>
+                    <input type="number" name="montoMin" class="form-control" step="0.01" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Monto Máximo</label>
+                    <input type="number" name="montoMax" class="form-control" step="0.01" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Fecha Inicio</label>
+                    <input type="date" name="fechaInicio" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">Fecha Fin</label>
+                    <input type="date" name="fechaFin" class="form-control" />
+                </div>
+                <div class="col-md-1 align-self-end">
+                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Mensajes de error -->
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<!-- Tabla de solicitudes -->
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No hay solicitudes registradas.</div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Monto Solicitado</th>
+                <th>Fecha Solicitud</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.MontoSolicitado.ToString("C")</td>
+                    <td>@item.FechaSolicitud.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @if (item.Estado == "Pendiente")
+                        {
+                            <span class="badge bg-warning">@item.Estado</span>
+                        }
+                        else if (item.Estado == "Aprobado")
+                        {
+                            <span class="badge bg-success">@item.Estado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">@item.Estado</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Detalle" asp-route-id="@item.Id" class="btn btn-sm btn-info">Ver Detalle</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
