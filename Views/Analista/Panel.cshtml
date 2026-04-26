@@ -1,0 +1,72 @@
+@model List<Examen_Parcial_Plataforma_de_Cr_ditos.Models.SolicitudCredito>
+
+@{
+    ViewData["Title"] = "Panel del Analista";
+}
+
+<h2>Panel del Analista - Solicitudes Pendientes</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No hay solicitudes pendientes para evaluar.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Ingresos Mensuales</th>
+                    <th>Monto Solicitado</th>
+                    <th>Relación (Monto/Ingresos)</th>
+                    <th>Fecha Solicitud</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var relacion = item.MontoSolicitado / item.Cliente.IngresosMensuales;
+                    var excedeLimite = item.MontoSolicitado > item.Cliente.IngresosMensuales * 5;
+                    
+                    <tr class="@(excedeLimite ? "table-danger" : "")">
+                        <td>@item.Id</td>
+                        <td>@item.Cliente.Usuario?.Email ?? "N/A"</td>
+                        <td>@item.Cliente.IngresosMensuales.ToString("C")</td>
+                        <td>@item.MontoSolicitado.ToString("C")</td>
+                        <td>
+                            @relacion.ToString("F2")x
+                            @if (excedeLimite)
+                            {
+                                <span class="badge bg-danger">Excede límite (5x)</span>
+                            }
+                        </td>
+                        <td>@item.FechaSolicitud.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <form asp-action="Aprobar" asp-route-id="@item.Id" method="post" style="display:inline;" 
+                                  onsubmit="return confirm('¿Aprobar solicitud #@item.Id por @item.MontoSolicitado.ToString("C")?');">
+                                <button type="submit" class="btn btn-success btn-sm" @(excedeLimite ? "disabled" : "")>
+                                    Aprobar
+                                </button>
+                            </form>
+                            
+                            <a asp-action="Rechazar" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Rechazar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
