@@ -17,52 +17,66 @@
 
 ## 📂 Estructura del proyecto
 
+```
 Examen-Parcial-Plataforma-de-Cr-ditos/
 ├── Controllers/
-│ ├── SolicitudController.cs # Mis Solicitudes, Crear, Cancelar
-│ ├── AnalistaController.cs # Panel, Aprobar, Rechazar
-│ └── HomeController.cs # Inicio, Ayuda
+│   ├── SolicitudController.cs
+│   ├── AnalistaController.cs
+│   └── HomeController.cs
 ├── Models/
-│ ├── Cliente.cs
-│ └── SolicitudCredito.cs
+│   ├── Cliente.cs
+│   └── SolicitudCredito.cs
 ├── Views/
-│ ├── Solicitud/
-│ │ ├── MisSolicitudes.cshtml
-│ │ ├── Crear.cshtml
-│ │ └── Detalle.cshtml
-│ ├── Analista/
-│ │ └── Panel.cshtml
-│ └── Home/
-│ ├── Index.cshtml
-│ └── Ayuda.cshtml
+│   ├── Solicitud/
+│   │   ├── MisSolicitudes.cshtml
+│   │   ├── Crear.cshtml
+│   │   └── Detalle.cshtml
+│   ├── Analista/
+│   │   └── Panel.cshtml
+│   └── Home/
+│       ├── Index.cshtml
+│       └── Ayuda.cshtml
 ├── Data/
-│ ├── ApplicationDbContext.cs
-│ └── DbInitializer.cs
+│   ├── ApplicationDbContext.cs
+│   └── DbInitializer.cs
 ├── Program.cs
 ├── appsettings.json
 ├── Dockerfile
 └── README.md
+```
+
 ---
 
 ## 🔐 Credenciales de prueba
 
 | Rol | Correo electrónico | Contraseña |
 |-----|-------------------|------------|
-| 👤 **Cliente** | `cliente1@test.com` | `Pass123!` |
-| 👤 **Cliente** | `cliente2@test.com` | `Pass123!` |
-| 📊 **Analista** | `analista@test.com` | `Pass123!` |
+| Cliente | cliente1@test.com | Pass123! |
+| Cliente | cliente2@test.com | Pass123! |
+| Analista | analista@test.com | Pass123! |
 
 ---
 
 ## 💻 Comandos para ejecutar localmente
 
-### 1. Clonar el repositorio
 ```bash
 git clone https://github.com/mathias23328/Examen-Parcial-Plataforma-de-Cr-ditos.git
 cd Examen-Parcial-Plataforma-de-Cr-ditos
 dotnet restore
 dotnet build
-dotnet ef migrations add InitialCreate
 dotnet ef database update
 dotnet run
-http://localhost:5299
+```
+
+---
+
+## ✅ Funcionalidades implementadas
+
+- [x] Modelos Cliente y SolicitudCredito
+- [x] Catálogo "Mis Solicitudes" con filtros
+- [x] Formulario de registro con validaciones
+- [x] Sesión Redis - Última solicitud visitada
+- [x] Panel de Analista (aprobar/rechazar)
+- [x] Despliegue en Render.com
+
+---
