@@ -1,0 +1,11 @@
+# Ignorar las carpetas bin y obj
+/bin/
+/obj/
+
+# Ignorar archivos compilados (DLL)
+*.dll
+*.exe
+*.pdb
+
+# Ignorar archivos de base de datos SQLite
+app.db
