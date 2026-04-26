@@ -26,11 +26,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                             <a class="nav-link text-dark" asp-area="" asp-controller="Solicitud" asp-action="MisSolicitudes">Mis Solicitudes</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Solicitud" asp-action="MisSolicitudes">Mis Solicitudes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Solicitud" asp-action="Crear"> Nueva Solicitud</a>
                         </li>
+                        
+                        @* ========== ENLACE DE ÚLTIMA SOLICITUD (SESIÓN REDIS) ========== *@
+                        @{
+                            var ultimaSolicitudId = Context.Session.GetString("UltimaSolicitudId");
+                            var ultimaSolicitudMonto = Context.Session.GetString("UltimaSolicitudMonto");
+                        }
+                        @if (!string.IsNullOrEmpty(ultimaSolicitudId))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Solicitud" asp-action="Detalle" asp-route-id="@ultimaSolicitudId">
+                                    Ver última solicitud (@ultimaSolicitudMonto)
+                                </a>
+                            </li>
+                        }
+                        @* ========== FIN ENLACE ÚLTIMA SOLICITUD ========== *@
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
