@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Examen_Parcial_Plataforma_de_Cr_ditos.Data;
 using Examen_Parcial_Plataforma_de_Cr_ditos.Models;
+using Microsoft.Extensions.Caching.Distributed;
+using System.Text.Json;
 
 namespace Examen_Parcial_Plataforma_de_Cr_ditos.Controllers;
 
@@ -12,75 +14,90 @@ public class SolicitudController : Controller
 {
     private readonly ApplicationDbContext _context;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly IDistributedCache _cache; 
 
-    public SolicitudController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+    public SolicitudController(ApplicationDbContext context, UserManager<IdentityUser> userManager,IDistributedCache cache)
     {
         _context = context;
         _userManager = userManager;
+         _cache = cache;
     }
 
-    // GET: Mis Solicitudes con filtros
-    public async Task<IActionResult> MisSolicitudes(
-        string estado,
-        decimal? montoMin,
-        decimal? montoMax,
-        DateTime? fechaInicio,
-        DateTime? fechaFin)
+   // GET: Mis Solicitudes con filtros
+public async Task<IActionResult> MisSolicitudes(
+    string estado,
+    decimal? montoMin,
+    decimal? montoMax,
+    DateTime? fechaInicio,
+    DateTime? fechaFin)
+{
+    // Validaciones server-side
+    if (fechaInicio.HasValue && fechaFin.HasValue && fechaInicio > fechaFin)
     {
-        // Validaciones server-side
-        if (fechaInicio.HasValue && fechaFin.HasValue && fechaInicio > fechaFin)
-        {
-            ViewBag.Error = "La fecha inicio no puede ser mayor a la fecha fin";
-            return View(new List<SolicitudCredito>());
-        }
+        ViewBag.Error = "La fecha inicio no puede ser mayor a la fecha fin";
+        return View(new List<SolicitudCredito>());
+    }
 
-        if ((montoMin.HasValue && montoMin < 0) || (montoMax.HasValue && montoMax < 0))
-        {
-            ViewBag.Error = "Los montos no pueden ser negativos";
-            return View(new List<SolicitudCredito>());
-        }
+    if ((montoMin.HasValue && montoMin < 0) || (montoMax.HasValue && montoMax < 0))
+    {
+        ViewBag.Error = "Los montos no pueden ser negativos";
+        return View(new List<SolicitudCredito>());
+    }
 
-        var user = await _userManager.GetUserAsync(User);
-        var cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.UsuarioId == user.Id);
+    var user = await _userManager.GetUserAsync(User);
+    var cliente = await _context.Clientes.FirstOrDefaultAsync(c => c.UsuarioId == user.Id);
 
-        if (cliente == null)
-        {
-            ViewBag.Error = "Cliente no encontrado";
-            return View(new List<SolicitudCredito>());
-        }
-   // Verificar si tiene solicitud pendiente
+    if (cliente == null)
+    {
+        ViewBag.Error = "Cliente no encontrado";
+        return View(new List<SolicitudCredito>());
+    }
+
+    // Verificar si tiene solicitud pendiente
     var tienePendiente = await _context.SolicitudesCredito
         .AnyAsync(s => s.ClienteId == cliente.Id && s.Estado == "Pendiente");
     ViewBag.TienePendiente = tienePendiente;
-        var query = _context.SolicitudesCredito
-            .Where(s => s.ClienteId == cliente.Id)
-            .AsQueryable();
 
-        if (!string.IsNullOrEmpty(estado))
-            query = query.Where(s => s.Estado == estado);
+    // Datos desde base de datos
+    var query = _context.SolicitudesCredito
+        .Where(s => s.ClienteId == cliente.Id)
+        .AsQueryable();
 
-        if (montoMin.HasValue && montoMin > 0)
-            query = query.Where(s => s.MontoSolicitado >= montoMin);
+    if (!string.IsNullOrEmpty(estado))
+        query = query.Where(s => s.Estado == estado);
 
-        if (montoMax.HasValue && montoMax > 0)
-            query = query.Where(s => s.MontoSolicitado <= montoMax);
+    if (montoMin.HasValue && montoMin > 0)
+        query = query.Where(s => s.MontoSolicitado >= montoMin);
 
-        if (fechaInicio.HasValue)
-            query = query.Where(s => s.FechaSolicitud >= fechaInicio);
+    if (montoMax.HasValue && montoMax > 0)
+        query = query.Where(s => s.MontoSolicitado <= montoMax);
 
-        if (fechaFin.HasValue)
-            query = query.Where(s => s.FechaSolicitud <= fechaFin);
+    if (fechaInicio.HasValue)
+        query = query.Where(s => s.FechaSolicitud >= fechaInicio);
 
-        ViewBag.Estado = estado;
-        ViewBag.MontoMin = montoMin;
-        ViewBag.MontoMax = montoMax;
-        ViewBag.FechaInicio = fechaInicio?.ToString("yyyy-MM-dd");
-        ViewBag.FechaFin = fechaFin?.ToString("yyyy-MM-dd");
+    if (fechaFin.HasValue)
+        query = query.Where(s => s.FechaSolicitud <= fechaFin);
 
-        var solicitudes = await query.OrderByDescending(s => s.FechaSolicitud).ToListAsync();
-        return View(solicitudes);
+    var solicitudes = await query.OrderByDescending(s => s.FechaSolicitud).ToListAsync();
+
+    // ========== SESIÓN (Redis) ==========
+    // Guardar última solicitud visitada en SESIÓN
+    if (solicitudes.Any())
+    {
+        var ultimaSolicitud = solicitudes.OrderByDescending(s => s.FechaSolicitud).First();
+        HttpContext.Session.SetString("UltimaSolicitudId", ultimaSolicitud.Id.ToString());
+        HttpContext.Session.SetString("UltimaSolicitudMonto", ultimaSolicitud.MontoSolicitado.ToString("C"));
     }
+    // ========== FIN SESIÓN ==========
 
+    ViewBag.Estado = estado;
+    ViewBag.MontoMin = montoMin;
+    ViewBag.MontoMax = montoMax;
+    ViewBag.FechaInicio = fechaInicio?.ToString("yyyy-MM-dd");
+    ViewBag.FechaFin = fechaFin?.ToString("yyyy-MM-dd");
+
+    return View(solicitudes);
+}
     // GET: Detalle de solicitud
     public async Task<IActionResult> Detalle(int id)
     {

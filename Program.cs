@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Examen_Parcial_Plataforma_de_Cr_ditos.Data;
-using Examen_Parcial_Plataforma_de_Cr_ditos.Models;  // ← Agrega esta línea
+using Examen_Parcial_Plataforma_de_Cr_ditos.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,31 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<JsonSerializerOptions>(options =>
+{
+    options.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.MaxDepth = 64;
+});
+// ========== CONFIGURACIÓN DE CACHÉ Y SESIONES ==========
+// Usar SOLO UNO: Redis (producción) o Memoria (desarrollo)
+// Para desarrollo local, usa MEMORIA:
+builder.Services.AddDistributedMemoryCache();  // ← Usa esto para desarrollo sin Redis
+
+// COMENTA Redis si no tienes Redis instalado
+// builder.Services.AddStackExchangeRedisCache(options =>
+// {
+//     options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+//     options.InstanceName = "CreditosApp_";
+// });
+
+// Configurar sesiones
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+// ========== FIN CONFIGURACIÓN ==========
 
 var app = builder.Build();
 
@@ -42,6 +69,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
@@ -56,8 +84,8 @@ using (var scope = app.Services.CreateScope())
     var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     
-    context.Database.EnsureCreated(); // Crea la BD si no existe
-    await DbInitializer.InitializeAsync(context, userManager, roleManager);
+    context.Database.EnsureCreated();
+    await DbInitializer.InitializeAsync(context, userManager, roleManager);  // ← Agregar await
 }
 
 app.Run();
