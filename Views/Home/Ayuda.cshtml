@@ -1,0 +1,161 @@
+@{
+    ViewData["Title"] = "Credenciales de Prueba";
+}
+
+<style>
+    .card-credential {
+        border-radius: 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+    }
+    
+    .card-header-cliente {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem;
+    }
+    
+    .card-header-analista {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 1rem;
+    }
+    
+    .credential-box {
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        font-family: monospace;
+        border-left: 4px solid #667eea;
+    }
+    
+    .copy-btn {
+        cursor: pointer;
+        background-color: #e9ecef;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+    }
+    
+    .copy-btn:hover {
+        background-color: #667eea;
+        color: white;
+    }
+    
+    .alert-copy {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        animation: fadeOut 2s ease-in-out;
+    }
+    
+    @@keyframes fadeOut {
+        0% { opacity: 1; }
+        70% { opacity: 1; }
+        100% { opacity: 0; display: none; }
+    }
+</style>
+
+<div class="container">
+    <div class="text-center mb-4">
+        <h1><i class="fas fa-users me-2"></i>Credenciales de Prueba</h1>
+        <p class="text-muted">Usa estas cuentas para probar la plataforma</p>
+    </div>
+
+    <div class="row">
+        <!-- Cliente 1 -->
+        <div class="col-md-6">
+            <div class="card card-credential">
+                <div class="card-header-cliente">
+                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>Cliente 1</h5>
+                </div>
+                <div class="card-body">
+                    <div class="credential-box">
+                        <strong>📧 Correo:</strong><br>
+                        <code id="email1">usuario1@gmail.com</code>
+                        <button class="copy-btn float-end" onclick="copyText('email1')">Copiar</button>
+                    </div>
+                    <div class="credential-box">
+                        <strong>🔑 Contraseña:</strong><br>
+                        <code id="pass1">Usuario1</code>
+                        <button class="copy-btn float-end" onclick="copyText('pass1')">Copiar</button>
+                    </div>
+                    <div class="mt-2">
+                        <small>💰 Numero de Registros : 10</small>
+                        <small>💰 Ingresos: S/ 3,000 | Límite: S/ 30,000</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cliente 2 -->
+        <div class="col-md-6">
+            <div class="card card-credential">
+                <div class="card-header-cliente">
+                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>Cliente 2</h5>
+                </div>
+                <div class="card-body">
+                    <div class="credential-box">
+                        <strong>📧 Correo:</strong><br>
+                        <code id="email2">cliente2@test.com</code>
+                        <button class="copy-btn float-end" onclick="copyText('email2')">Copiar</button>
+                    </div>
+                    <div class="credential-box">
+                        <strong>🔑 Contraseña:</strong><br>
+                        <code id="pass2">Pass123!</code>
+                        <button class="copy-btn float-end" onclick="copyText('pass2')">Copiar</button>
+                    </div>
+                    <div class="mt-2">
+                        <small>💰 Ingresos: S/ 5,000 | Límite: S/ 50,000</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analista -->
+        <div class="col-md-6 mx-auto">
+            <div class="card card-credential">
+                <div class="card-header-analista">
+                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Analista</h5>
+                </div>
+                <div class="card-body">
+                    <div class="credential-box">
+                        <strong>📧 Correo:</strong><br>
+                        <code id="email3">analista@test.com</code>
+                        <button class="copy-btn float-end" onclick="copyText('email3')">Copiar</button>
+                    </div>
+                    <div class="credential-box">
+                        <strong>🔑 Contraseña:</strong><br>
+                        <code id="pass3">Pass123!</code>
+                        <button class="copy-btn float-end" onclick="copyText('pass3')">Copiar</button>
+                    </div>
+                    <div class="mt-2">
+                        <small>📊 Permiso: Aprobar/Rechazar solicitudes</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-3">
+        <i class="fas fa-info-circle me-2"></i>
+        También puedes <a asp-area="Identity" asp-page="/Account/Register">registrar tu propia cuenta</a> como cliente.
+    </div>
+</div>
+
+<script>
+    function copyText(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text);
+        alert('📋 Copiado: ' + text);
+    }
+</script>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+}

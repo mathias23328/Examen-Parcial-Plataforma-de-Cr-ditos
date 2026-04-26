@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Examen-Parcial-Plataforma-de-Cr-ditos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a984bfe6c8965f027bd34bbf80126bd2bf1da6f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6f2b91767fe06f14d5ed1d3f33fbc760b8fd2bd")]
 [assembly: System.Reflection.AssemblyProductAttribute("Examen-Parcial-Plataforma-de-Cr-ditos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Examen-Parcial-Plataforma-de-Cr-ditos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

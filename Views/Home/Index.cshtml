@@ -1,8 +1,266 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 1rem;
+        padding: 3rem 2rem;
+        margin-bottom: 2rem;
+        color: white;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        margin-bottom: 1.5rem;
+    }
+    
+    .feature-card {
+        border: none;
+        border-radius: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        height: 100%;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .stats-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        color: white;
+        text-align: center;
+    }
+    
+    .stats-number {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    
+    .cta-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: transform 0.3s ease;
+    }
+    
+    .cta-button:hover {
+        transform: scale(1.05);
+        color: white;
+    }
+    
+    .card-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem auto;
+    }
+    
+    .card-icon i {
+        font-size: 1.8rem;
+        color: white;
+    }
+</style>
+
+<!-- Hero Section con imagen de fondo -->
+<div class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="hero-title">
+                    <i class="fas fa-credit-card me-2"></i>
+                    Plataforma de Créditos
+                </h1>
+                <p class="hero-subtitle">
+                    Gestión inteligente de solicitudes y evaluación de créditos
+                </p>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-light btn-lg cta-button">
+                        <i class="fas fa-user-plus me-2"></i>Comenzar Ahora
+                    </a>
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light btn-lg ms-2">
+                        <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+                    </a>
+                }
+                else if (User.IsInRole("Analista"))
+                {
+                    <a asp-controller="Analista" asp-action="Panel" class="btn btn-light btn-lg cta-button">
+                        <i class="fas fa-chart-line me-2"></i>Ir al Panel Analista
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Solicitud" asp-action="Crear" class="btn btn-light btn-lg cta-button">
+                        <i class="fas fa-file-alt me-2"></i>Solicitar Crédito
+                    </a>
+                    <a asp-controller="Solicitud" asp-action="MisSolicitudes" class="btn btn-outline-light btn-lg ms-2">
+                        <i class="fas fa-list me-2"></i>Mis Solicitudes
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="container">
+    <!-- Descripción del Sistema -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h2 class="mb-3">¿Cómo funciona?</h2>
+            <p class="lead text-muted">
+                Una plataforma integral para gestionar solicitudes de crédito con reglas de negocio inteligentes,
+                asegurando la capacidad de pago y evitando múltiples solicitudes activas.
+            </p>
+        </div>
+    </div>
+
+    <!-- Tarjetas de Características -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card feature-card text-center p-4">
+                <div class="card-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h4>Autenticación Segura</h4>
+                <p class="text-muted">Acceso mediante Identity con roles diferenciados para clientes y analistas.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card feature-card text-center p-4">
+                <div class="card-icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h4>Solicitudes Rápidas</h4>
+                <p class="text-muted">Registro de solicitudes con validaciones automáticas de capacidad de pago.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card feature-card text-center p-4">
+                <div class="card-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h4>Evaluación Inteligente</h4>
+                <p class="text-muted">Reglas automatizadas para aprobar o rechazar según ingresos y monto solicitado.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card feature-card text-center p-4">
+                <div class="card-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <h4>Filtros Avanzados</h4>
+                <p class="text-muted">Búsqueda por estado, montos y fechas para mejor seguimiento.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card feature-card text-center p-4">
+                <div class="card-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h4>Cache con Redis</h4>
+                <p class="text-muted">Optimización de rendimiento con sesiones y caché Redis.</p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card feature-card text-center p-4">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h4>Dashboard Analista</h4>
+                <p class="text-muted">Panel exclusivo para evaluación y gestión de solicitudes pendientes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas o datos relevantes -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card">
+                <div class="stats-number">100%</div>
+                <p>Validador de Capacidad de Pago</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card">
+                <div class="stats-number">1</div>
+                <p>Solicitud Activa por Cliente</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card">
+                <div class="stats-number">10x</div>
+                <p>Monto Máximo vs Ingresos</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card">
+                <div class="stats-number">5x</div>
+                <p>Límite para Aprobación Automática</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reglas del Sistema -->
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card border-0 bg-light">
+                <div class="card-body p-4">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-gavel me-2"></i>
+                        Reglas del Sistema
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Un cliente solo puede tener una solicitud pendiente</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Monto máximo: 10x los ingresos mensuales</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Aprobación automática: monto ≤ 5x ingresos</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Validaciones server-side en todos los formularios</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Sesiones Redis para última solicitud visitada</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Rol Analista con panel exclusivo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Font Awesome para íconos -->
+@section Scripts {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+}

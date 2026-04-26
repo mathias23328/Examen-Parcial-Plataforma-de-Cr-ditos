@@ -3,16 +3,36 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Examen_Parcial_Plataforma_de_Cr_ditos</title>
+    <title>@ViewData["Title"] - Examen Parcial Plataforma de Creditos</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Examen_Parcial_Plataforma_de_Cr_ditos.styles.css" asp-append-version="true" />
+       <style>
+        /* Estilo para el enlace activo */
+        .nav-item a.active {
+            background-color: rgba(102, 126, 234, 0.15);
+            border-radius: 8px;
+            font-weight: 600;
+            color: #4a5fc1 !important;
+        }
+        
+        .navbar-nav .nav-link {
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            padding: 8px 16px;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Examen_Parcial_Plataforma_de_Cr_ditos</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Examen Parcial Plataforma de Creditos</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,17 +40,29 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")" 
+                               asp-area="" asp-controller="Home" asp-action="Index">
+                                Inicio
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+    <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Ayuda" ? "active" : "")" 
+       asp-area="" asp-controller="Home" asp-action="Ayuda">
+        👥 Credenciales de Prueba
+    </a>
+</li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Solicitud" asp-action="MisSolicitudes">Mis Solicitudes</a>
-                        </li>
+                                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Solicitud" && ViewContext.RouteData.Values["action"]?.ToString() == "MisSolicitudes" ? "active" : "")" 
+                                   asp-area="" asp-controller="Solicitud" asp-action="MisSolicitudes">
+                                    📋 Mis Solicitudes
+                                </a>
+                            </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Solicitud" asp-action="Crear"> Nueva Solicitud</a>
-                        </li>
+                                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Solicitud" && ViewContext.RouteData.Values["action"]?.ToString() == "Crear" ? "active" : "")" 
+                                   asp-area="" asp-controller="Solicitud" asp-action="Crear">
+                                     Nueva Solicitud
+                                </a>
+                            </li>
                         
                         
                         @{
